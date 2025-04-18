@@ -3,19 +3,14 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'anime-recommender'
+        CONTAINER_NAME = 'anime-container'
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/your-username/anime-recommender.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t $IMAGE_NAME .'
+                    bat 'docker build -t %IMAGE_NAME% .'
                 }
             }
         }
@@ -23,11 +18,8 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Stop existing container if running
-                    sh 'docker rm -f anime-container || true'
-                    
-                    // Run the new container
-                    sh 'docker run -d -p 8501:8501 --name anime-container $IMAGE_NAME'
+                    bat 'docker rm -f %CONTAINER_NAME% || exit 0'
+                    bat 'docker run -d -p 8501:8501 --name %CONTAINER_NAME% %IMAGE_NAME%'
                 }
             }
         }
@@ -35,10 +27,10 @@ pipeline {
 
     post {
         success {
-            echo 'Anime Recommender Deployed Successfully 🎉'
+            echo '✅ Anime Recommender Deployed Successfully!'
         }
         failure {
-            echo 'Something went wrong ❌'
+            echo '❌ Something went wrong.'
         }
     }
 }
