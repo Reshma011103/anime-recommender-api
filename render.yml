@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: anime-recommender-api
+    env: docker
+    plan: free
+    branch: main
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    startCommand: "python app.py"
+    autoDeploy: true
