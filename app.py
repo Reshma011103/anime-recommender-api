@@ -81,7 +81,7 @@ DROPDOWN_TEMPLATE = '''
     </style>
 </head>
 <body>
-    <h1>Anime  Recommender</h1>
+    <h1>Anime genre Recommender</h1>
     <form action="/recommend" method="post">
         <label for="genre">Choose a genre:</label><br><br>
         <select name="genre" id="genre">
